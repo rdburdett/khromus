@@ -1,0 +1,26 @@
+{
+  "name": "ultralog",
+  "version": "1.0.0",
+  "description": "A better console.log",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rdburdett/ultralog.git"
+  },
+  "keywords": [
+    "log"
+  ],
+  "author": "Robert Burdett",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rdburdett/ultralog/issues"
+  },
+  "homepage": "https://github.com/rdburdett/ultralog#readme",
+  "dependencies": {
+    "chalk": "^5.3.0"
+  }
+}
