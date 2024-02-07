@@ -1,3 +1,6 @@
 import chalk from "chalk";
 
-console.log(chalk.magenta('test'))
+export default function log(data) {
+    
+    console.log(chalk.magenta(data))
+}
