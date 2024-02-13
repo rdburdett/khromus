@@ -1,53 +1,91 @@
 import chalk from "chalk";
 
+// Helper function to format date objects
+function formatDate(data) {
+	return data instanceof Date ? data.toISOString() : null;
+}
+
+// Helper function to format objects
+function formatObject(data) {
+	return Array.isArray(data)
+		? `[${data.join(",")}]`
+		: JSON.stringify(data, null, 2);
+}
+
+// Helper function to handle logging errors
+function logError(error, data) {
+	console.error(chalk.red(`Error logging data: ${error.message}`));
+	console.error(chalk.red("Data causing error:", data));
+}
+
 export default function log(...args) {
 	try {
+		let array = [];
+		let pref = {
+			type: true,
+			color: true,
+			newLine: true,
+		};
 		args.forEach((data) => {
 			let logColor;
-			let type;
-			let logtype = true;
+			let logType;
 			switch (typeof data) {
 				case "string":
-					type = "String";
+					logType = "String";
 					logColor = "green";
 					break;
 				case "object":
-					type = Array.isArray(data) ? "Array" : "Object";
-					logColor = Array.isArray(data) ? "cyan" : "blue";
-					data = Array.isArray(data)
-						? `[${data.join(",")}]`
-						: JSON.stringify(data, null, 2);
+					const formattedDate = formatDate(data);
+					if (formattedDate !== null) {
+						logType = "Date";
+						logColor = "yellow";
+						data = formattedDate;
+					} else {
+						logType = Array.isArray(data) ? "Array" : "Object";
+						logColor = Array.isArray(data) ? "cyan" : "blue";
+						data = formatObject(data);
+					}
 					break;
 				case "number":
-					type = "Number";
+					logType = "Number";
 					logColor = "yellow";
 					break;
 				case "function":
-					type = "Function";
+					logType = "Function";
 					logColor = "gray";
 					data = data.toString();
 					break;
 				case "boolean":
-					type = "Boolean";
+					logType = "Boolean";
 					logColor = "magenta";
 					break;
 				case "undefined":
-					type = "Undefined";
+					logType = "Undefined";
 					logColor = "red";
 					break;
 				default:
 					throw new Error("Unsupported data type");
 			}
-			console.log(chalk[logColor](`${type}: ${data}`));
+			let color = pref.color ? logColor : "gray";
+			let type = pref.type ? `${logType}: ` : "";
+			array.push(chalk[color](`${type}${data}`));
 		});
+		let newLine = pref.newLine ? "\n" : ", ";
+		console.log(array.join(newLine));
 	} catch (error) {
-		console.error(chalk.red(`Error logging data: ${error.message}`));
-		console.error(chalk.red("Data causing error:", data));
+		logError(error, data);
 	}
 }
 
-log("Test Output.", [1, 2, 3], 42, true, undefined, new Date(), function () {
-	console.log("Hello!");
-});
-
-// Todo: Create ability to toggle display of log type
+log(
+	"Test Output.",
+	[1, 2, 3],
+	42,
+	true,
+	{},
+	undefined,
+	new Date(),
+	function () {
+		console.log("Hello!");
+	}
+);
