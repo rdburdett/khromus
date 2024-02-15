@@ -19,13 +19,13 @@ function logError(error, data) {
 }
 
 export default function log(...args) {
+	let array = [];
+	let pref = {
+		type: true,
+		color: true,
+		newLine: true,
+	};
 	try {
-		let array = [];
-		let pref = {
-			type: true,
-			color: true,
-			newLine: true,
-		};
 		args.forEach((data) => {
 			let logColor;
 			let logType;
@@ -66,12 +66,13 @@ export default function log(...args) {
 				default:
 					throw new Error("Unsupported data type");
 			}
+
 			let color = pref.color ? logColor : "gray";
 			let type = pref.type ? `${logType}: ` : "";
+
 			array.push(chalk[color](`${type}${data}`));
 		});
-		let newLine = pref.newLine ? "\n" : ", ";
-		console.log(array.join(newLine));
+		console.log(array.join(pref.newLine ? "\n" : ", "));
 	} catch (error) {
 		logError(error, data);
 	}
