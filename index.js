@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import testData from "./test-data.js";
 
 // Helper function to format date objects
 function formatDate(data) {
@@ -78,15 +79,4 @@ export default function log(...args) {
 	}
 }
 
-log(
-	"Test Output.",
-	[1, 2, 3],
-	42,
-	true,
-	{},
-	undefined,
-	new Date(),
-	function () {
-		console.log("Hello!");
-	}
-);
+log(...testData);
