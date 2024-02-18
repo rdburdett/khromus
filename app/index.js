@@ -5,6 +5,6 @@ export default function log(...args) {
 	return processEntries(args)
 }
 
-// log(...testData);
+log(...testData);
 log('Apple', 34)
 
