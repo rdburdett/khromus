@@ -1,32 +1,33 @@
+import pref, { type, color, newLine } from "../app/preferences.js";
+import testData from "../test/test-data.js";
+// log(...testData);
 
-import pref, { type, color, newLine } from '../app/index.js';
+describe("pref object", () => {
+	test("should exist", () => {
+		expect(pref).toBeDefined();
+	});
 
-describe('pref object', () => {
-    test('should exist', () => {
-        expect(pref).toBeDefined();
-    });
+	test("should have type property", () => {
+		expect(pref).toHaveProperty("type");
+	});
 
-    test('should have type property', () => {
-        expect(pref).toHaveProperty('type');
-    });
+	test("type property should be boolean", () => {
+		expect(typeof type).toBe("boolean");
+	});
 
-    test('type property should be boolean', () => {
-        expect(typeof type).toBe('boolean');
-    });
+	test("should have color property", () => {
+		expect(pref).toHaveProperty("color");
+	});
 
-    test('should have color property', () => {
-        expect(pref).toHaveProperty('color');
-    });
+	test("color property should be boolean", () => {
+		expect(typeof color).toBe("boolean");
+	});
 
-    test('color property should be boolean', () => {
-        expect(typeof color).toBe('boolean');
-    });
+	test("should have newLine property", () => {
+		expect(pref).toHaveProperty("newLine");
+	});
 
-    test('should have newLine property', () => {
-        expect(pref).toHaveProperty('newLine');
-    });
-
-    test('newLine property should be boolean', () => {
-        expect(typeof newLine).toBe('boolean');
-    });
+	test("newLine property should be boolean", () => {
+		expect(typeof newLine).toBe("boolean");
+	});
 });
